@@ -30,10 +30,17 @@ class MyPageState extends State<MyPage> {
           itemBuilder: (context, index) => Dismissible(
             key: Key(items[index]),
             onDismissed: (direction) {
+              final item = items[index];
               print('direction: $direction');
               setState(() {
                 items.removeAt(index);
               });
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  duration: Duration(milliseconds: 600),
+                  content: Text('$item dismissed'),
+                ),
+              );
             },
             child: ListTile(
               title: Text('${items[index]}'),
