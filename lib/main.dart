@@ -16,14 +16,28 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyPage extends StatelessWidget {
-  final items = List<String>.generate(20, (i) => "Item ${i + 1}");
+class MyPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => MyPageState();
+}
+
+class MyPageState extends State<MyPage> {
+  final items = List<String>.generate(20, (i) => "Item ${i + 1} hoge");
   @override
   Widget build(BuildContext context) => Center(
         child: ListView.builder(
           itemCount: items.length,
-          itemBuilder: (context, index) => ListTile(
-            title: Text('${items[index]}'),
+          itemBuilder: (context, index) => Dismissible(
+            key: Key(items[index]),
+            onDismissed: (direction) {
+              print('direction: $direction');
+              setState(() {
+                items.removeAt(index);
+              });
+            },
+            child: ListTile(
+              title: Text('${items[index]}'),
+            ),
           ),
         ),
       );
