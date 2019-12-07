@@ -28,6 +28,7 @@ class MyPageState extends State<MyPage> {
         child: ListView.builder(
           itemCount: items.length,
           itemBuilder: (context, index) => Dismissible(
+            background: Container(color: Colors.red),
             key: Key(items[index]),
             onDismissed: (direction) {
               final item = items[index];
